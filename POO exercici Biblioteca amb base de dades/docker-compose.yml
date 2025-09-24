@@ -1,0 +1,18 @@
+services:
+  db:
+    build: .   # Usa el Dockerfile en este directorio
+    container_name: dwec_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: biblioteca
+      MYSQL_USER: joel
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Opcional: script inicial
+
+volumes:
+  db_data:
