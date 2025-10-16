@@ -12,3 +12,4 @@ USER mysql
 
 #Permetre la exposició de dades amb el port 3306
 EXPOSE 3306
+CMD ["mysqld", "--default-authentication-plugin=mysql_native_password"]

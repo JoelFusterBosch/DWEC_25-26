@@ -53,7 +53,7 @@ Per a copiar un fitxer al contenidor de Docker necessitarem executar este comand
 `docker cp Rutabsoluta/relativaDesDelProjecte/nomDelFitxer.sql NomContenidor:/nomDelFitxer.sql`
 Quedant de la següent forma:
 ```bash
-docker cp /DWEC_25-26/POO exercici Biblioteca amb base de dades/biblioteca.sql" dwec_mysql:/biblioteca.sql
+docker cp ./biblioteca.sql dwec_mysql:/biblioteca.sql 
 ```
 ## Com executar el fitxer .sql i vore les taules
 Primer entrem a la base de dades amb root
