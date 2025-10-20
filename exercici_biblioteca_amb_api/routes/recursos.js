@@ -11,19 +11,30 @@ router.get('/', async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM Recurs');
         res.json(rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora de llistar els recursos" });
+        console.log("Error al obtindre el recursos", err);
+        return next(err);
     }
 });
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const [rows] = await pool.query('SELECT * FROM Recurs WHERE id = ?', [id]);
+        if (rows.length === 0) return res.status(404).json({ error: "Recurs no trobat" });
+        res.status(200).json(rows[0]);
+    } catch (err) {
+        console.log("Error al obtindre el recurs", err);
+        return next(err);
+    }
+});
 
 router.get('/llibres', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM Llibre');
         res.json(rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora de llistar els llibres" });
+        console.log("Error al llistar els llibres", err);
+        return next(err);e
     }
 });
 
@@ -33,8 +44,8 @@ router.get('/revistes', async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM Revista');
         res.json(rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora de llistar les revistes" });
+        console.log("Error al obtindre les revistes", err);
+        return next(err);
     }
 });
 
@@ -44,23 +55,11 @@ router.get('/pelicules', async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM Pelicula');
         res.json(rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora de llistar les pelicules" });
+        console.log("Error al obtindre les pel·licules", err);
+        return next(err);
     }
 });
 
-
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        const [rows] = await pool.query('SELECT * FROM Recurs WHERE id = ?', [id]);
-        if (rows.length === 0) return res.status(404).json({ error: "Recurs no trobat" });
-        res.json(rows[0]);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora de llistar els recursos" });
-    }
-});
 
 /*
    POSTS
@@ -75,10 +74,10 @@ router.post('/addLlibre', async (req, res) => {
             [autor, material_id]
         );
         const [rows] = await pool.query('SELECT * FROM Llibre WHERE id = ?', [result.insertId]);
-        res.json(rows[0]);
+        res.status(201).json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora d'afegir el llibre" });
+        console.log("Error al afegir el llibre", err);
+        return next(err);
     }
 });
 
@@ -91,10 +90,10 @@ router.post('/addRevista', async (req, res) => {
             [dataPublicacio, material_id]
         );
         const [rows] = await pool.query('SELECT * FROM Revista WHERE id = ?', [result.insertId]);
-        res.json(rows[0]);
+        res.status(201).json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora d'afegir la revista" });
+        console.log("Error al afegir la revista", err);
+        return next(err);
     }
 });
 
@@ -107,10 +106,10 @@ router.post('/addPelicula', async (req, res) => {
             [director, genere, material_id]
         );
         const [rows] = await pool.query('SELECT * FROM Pelicula WHERE id = ?', [result.insertId]);
-        res.json(rows[0]);
+        res.status(201).json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora d'afegir la pelicula" });
+        console.log("Error al afegir la pel·licula", err);
+        return next(err);
     }
 });
 
@@ -129,10 +128,10 @@ router.put('/updLlibre/:id', async (req, res) => {
         );
         const [rows] = await pool.query('SELECT * FROM Llibre WHERE id = ?', [id]);
         if (rows.length === 0) return res.status(404).json({ error: "Llibre no trobat" });
-        res.json(rows[0]);
+        res.status(200).json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: err.message });
+        console.log("Error al actualitzar el llibre", err);
+        return next(err);
     }
 });
 
@@ -147,14 +146,14 @@ router.put('/updRevista/:id', async (req, res) => {
         );
         const [rows] = await pool.query('SELECT * FROM Revista WHERE id = ?', [id]);
         if (rows.length === 0) return res.status(404).json({ error: "Revista no trobada" });
-        res.json(rows[0]);
+        res.status(200).json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: err.message });
+        console.log("Error al actualitzar la revista", err);
+        return next(err);
     }
 });
 
-router.put('/updPelicula/:id', async (req, res) => {
+router.put('/updPelicula/:id', async (req, res, next) => {
     const { id } = req.params;
     const { director, genere, material_id } = req.body;
 
@@ -165,11 +164,19 @@ router.put('/updPelicula/:id', async (req, res) => {
         );
         const [rows] = await pool.query('SELECT * FROM Pelicula WHERE id = ?', [id]);
         if (rows.length === 0) return res.status(404).json({ error: "Pelicula no trobada" });
-        res.json(rows[0]);
+        res.status(200).json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: err.message });
+        console.log("Error al actualitzar la pel·licula", err);
+        return next(err);
     }
 });
 
+router.use((err, req, res, next)=>{
+    console.log(err);
+    res.status(500).json({
+        ok:false,
+        error:"Error intern en el servidor",
+        detail: process.env.NODE_ENV === 'production' ? undefined : err.message
+    });
+});
 module.exports = router;

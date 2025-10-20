@@ -238,7 +238,7 @@ module.exports = router;
 ```
 - index.js (o com siga el fitxer principal creat amb npm init)
 
-En el index "o el nom que siga" hem de crear la connexió al endpoint principal, i on el servidor tindra accés als altres endpoints que teniem en la carpteta routes, que deuria de quedar de la següent forma:
+En el ftxer principal hem de crear la connexió al endpoint principal, i on el servidor tindra accés als altres endpoints que teniem en la carpteta routes, que deuria de quedar de la següent forma:
 ```javascript
 // Importem les llibreries de express i les usem
 const express = require('express');

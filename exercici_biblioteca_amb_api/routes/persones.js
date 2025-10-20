@@ -9,10 +9,10 @@ const pool = require('../db');
 router.get('/', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM Persona');
-        res.json(rows);
+        res.status(200).json(rows);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora de llistar les persones" });
+        console.log("Error al obtindre les perrsones", err);
+        return next(err);
     }
 });
 router.get('/soci/:id', async (req,res)=>{
@@ -20,10 +20,10 @@ router.get('/soci/:id', async (req,res)=>{
         try {
             const [rows] = await pool.query('SELECT * FROM Soci WHERE id = ?', [id]);
             if (rows.length === 0) return res.status(404).json({ error: "Soci no trobat" });
-            res.json(rows[0]);
+            res.status(200).json(rows[0]);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: "Error a l'hora de llistar els socis" });
+            console.log("Error al obtindre el soci", err);
+            return next(err);
         }
 });
 router.get('/administrador/:id', async (req,res)=>{
@@ -31,10 +31,10 @@ router.get('/administrador/:id', async (req,res)=>{
         try {
             const [rows] = await pool.query('SELECT * FROM Administrador WHERE id = ?', [id]);
             if (rows.length === 0) return res.status(404).json({ error: "Administrador no trobat" });
-            res.json(rows[0]);
+            res.status(200).json(rows[0]);
         } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: "Error a l'hora de llistar els administradors" });
+            console.log("Error al obtindre al administrador", err);
+            return next(err);
         }
 });
 
@@ -52,8 +52,8 @@ router.post('/addSoci', async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM Soci WHERE id = ?', [result.insertId]);
         res.json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora d'afegir el soci" });
+        console.log("Error al afegir al administrador", err);
+        return next(err);
     }
 });
 router.post('/addAdministrador', async (req, res) => {
@@ -66,8 +66,8 @@ router.post('/addAdministrador', async (req, res) => {
         const [rows] = await pool.query('SELECT * FROM Administrador WHERE id = ?', [result.insertId]);
         res.json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error a l'hora d'afegir el administrador" });
+        console.log("Error al afegir al administrador", err);
+        return next(err);
     }
 });
 /*
@@ -86,8 +86,8 @@ router.put('/updSoci/:id', async (req, res) => {
         if (rows.length === 0) return res.status(404).json({ error: "Soci no trobat" });
         res.json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: err.message });
+        console.log("Error al actualitzar el soci", err);
+        return next(err);
     }
 });
 router.put('/updAdministrador/:id', async (req, res) => {
@@ -103,8 +103,18 @@ router.put('/updAdministrador/:id', async (req, res) => {
         if (rows.length === 0) return res.status(404).json({ error: "Administrador no trobat" });
         res.json(rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: err.message });
+        console.log("Error al actualitzar l'administrador", err);
+        return next(err);
     }
 });
+
+router.use((err, req, res, next)=>{
+    console.log(err);
+    res.status(500).json({
+        ok:false,
+        error:"Error intern en el servidor",
+        detail: process.env.NODE_ENV === 'production' ? undefined : err.message
+    });
+});
+module.exports = router;
 module.exports = router;
