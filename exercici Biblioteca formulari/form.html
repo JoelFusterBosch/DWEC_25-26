@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulari de html a node</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="formulari.js" defer></script>
+</head>
+<body>
+
+    <!-- Formulari de Persona-->
+
+    <form name="persona" action="#" method="post">
+        <fieldset>
+            <legend>Persona</legend>
+                <label for="nom">Nom:</label><br>
+                <input type="text" id="nom" name="nom" required><br>
+                <label for="dni">DNI:</label><br>
+                <input type="text" id="dni" name="dni" required><br>
+                <label for="persona">Tipus de persona:</label><br>
+                <select id="classePersona" name="persona" onChange="mostrarCampsPersona()" required>
+                    <option value="soci">Soci</option>
+                    <option value="administrador">Administrador</option>
+                </select><br>
+        
+                <div id="soci" class="ocult">
+                    <label for="soci">Camp per a opció soci:</label>
+                    <input type="text" id="soci" name="soci"><br>
+                </div>
+                <div id="administrador" class="ocult">
+                    <label for="administrador">Tipus de administrador:</label><br>
+                    <select id="administrador" name="administrador" required>
+                        <option value="ajudant">Ajudant</option>
+                        <option value="admin">Administrador</option>
+                    </select><br>
+                </div>
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Reset">
+        </fieldset>
+    </form>
+
+    <!-- Formulari de Recurs-->
+
+    <form name="recurs" action="#" method="post">
+        <fieldset>
+            <legend>Recurs</legend>
+                <label for="titol">Titol:</label><br>
+                <input type="text" id="titol" name="titol" required><br>
+                <label for="exemplars">Número d'exemplars:</label><br>
+                <input type="number" id="exemplars" name="exemplars" required><br>
+                <label for="recurs">Tipus de recurs:</label><br>
+                <select id="classeRecurs" name="recurs" onChange="mostrarCampsRecurs()" required>
+                    <option value="llibre">Llibre</option>
+                    <option value="revista">Revista</option>
+                    <option value="pelicula">Pel·lícula</option>
+                </select><br>
+        
+                <div id="llibre" class="ocult">
+                    <label for="autor">Nom de l'autor:</label>
+                    <input type="text" id="autor" name="autor"><br>
+                </div>
+                <div id="revista" class="ocult">
+                    <label for="publicacio">Data de publicació:</label><br>
+                    <input type="date" id="publicacio" name="publicacio"><br>
+                </div>
+                <div id="pelicula" class="ocult">
+                    <label for="director">Nom del director:</label><br>
+                    <input type="text" id="director" name="director"><br>
+                    <label for="genere">Gènere:</label><br>
+                    <input type="text" id="genere" name="genere"><br>
+                </div>
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Reset">
+        </fieldset>
+    </form>
+</body>
+</html>

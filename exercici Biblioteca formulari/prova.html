@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mostrar/Ocultar Campos en un Formulario</title>
+<style>
+  .escondido {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<form>
+  <label for="opciones">Selecciona una opción:</label>
+  <select id="opciones" onchange="mostrarCampos()">
+    <option value="opcion1">Opción 1</option>
+    <option value="opcion2">Opción 2</option>
+    <option value="opcion3">Opción 3</option>
+  </select>
+
+  <div id="campo1" class="escondido">
+    <label for="campo1">Campo para Opción 1:</label>
+    <input type="text" id="campo1" name="campo1">
+  </div>
+
+  <div id="campo2" class="escondido">
+    <label for="campo2">Campo para Opción 2:</label>
+    <input type="number" id="campo2" name="campo2">
+  </div>
+
+  <div id="campo3" class="escondido">
+    <label for="campo3">Campo para Opción 3:</label>
+    <textarea id="campo3" name="campo3"></textarea>
+  </div>
+</form>
+
+<script>
+function mostrarCampos() {
+  // Oculta todos los campos al inicio
+  document.getElementById('campo1').classList.add('escondido');
+  document.getElementById('campo2').classList.add('escondido');
+  document.getElementById('campo3').classList.add('escondido');
+
+  // Muestra el campo correspondiente a la opción seleccionada
+  const opcionSeleccionada = document.getElementById('opciones').value;
+
+  if (opcionSeleccionada === 'opcion1') {
+    document.getElementById('campo1').classList.remove('escondido');
+  } else if (opcionSeleccionada === 'opcion2') {
+    document.getElementById('campo2').classList.remove('escondido');
+  } else if (opcionSeleccionada === 'opcion3') {
+    document.getElementById('campo3').classList.remove('escondido');
+  }
+}
+</script>
+
+</body>
+</html>
