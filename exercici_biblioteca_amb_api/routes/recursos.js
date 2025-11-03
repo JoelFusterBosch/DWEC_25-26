@@ -65,7 +65,19 @@ router.get('/pelicules', async (req, res) => {
    POSTS
 */
 
-
+router.post('/addMaterial', async (req,res) => {
+    const {titol, numExemplars} = req.body;
+    try{
+        const [result] = await pool.query(
+          'INSERT INTO Material (titol,numExemplars) VALUES(?,?)',
+          [titol,numExemplars]  
+        );
+        const [rows] = await pool.query('SELECT * FROM Material WHERE id = ?', [result.insertId]);
+        res.json(rows[0]);
+    }catch (err) {
+        console.log("Error al afegir al material", err);
+    }
+});
 router.post('/addLlibre', async (req, res) => {
     const { autor, material_id } = req.body;
     try {

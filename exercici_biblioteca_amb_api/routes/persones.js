@@ -42,6 +42,19 @@ router.get('/administrador/:id', async (req,res)=>{
 POSTS
 */
 
+router.post('/addPersona', async (req,res) => {
+    const {nom, dni, tipus} = req.body;
+    try{
+        const [result] = await pool.query(
+          'INSERT INTO Persona (nom,dni,tipus) VALUES(?,?,?)',
+          [nom,dni,tipus]  
+        );
+        const [rows] = await pool.query('SELECT * FROM Persona  WHERE id = ?', [result.insertId]);
+        res.json(rows[0]);
+    }catch (err) {
+        console.log("Error al afegir a la persona", err);
+    }
+});
 router.post('/addSoci', async (req, res) => {
     const { persona_id } = req.body;
     try {
