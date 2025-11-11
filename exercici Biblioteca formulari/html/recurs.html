@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/styleForm.css">
+    <script src="../js/formulari.js" defer></script>
+</head>
+<body>
+    <!-- Exemple PopUp-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" rel="stylesheet"/>
+
+    <div id="IdModal" class="modal">
+        <p>Afegir Recurs.</p>
+        <!-- Formulari de Recurs-->
+        <form name="recurs" action="#" method="post"> <!--Posar "enviarRecurs()" quan estiga preparat la connexió a node.js-->
+            <fieldset>
+                <legend>Recurs</legend>
+                    <label for="titol">Titol:</label><br>
+                    <input type="text" id="titol" name="titol" required><br>
+                    <label for="exemplars">Número d'exemplars:</label><br>
+                    <input type="number" id="exemplars" name="exemplars" required><br>
+                    <label for="recurs">Tipus de recurs:</label><br>
+                    <select id="classeRecurs" name="recurs" onChange="mostrarCampsRecurs()" required>
+                        <option value="" disabled selected hidden>Selecciona una opció</option>
+                        <option value="llibre">Llibre</option>
+                        <option value="revista">Revista</option>
+                        <option value="pelicula">Pel·lícula</option>
+                    </select><br>
+                    <div id="llibre" class="ocult">
+                        <label for="autor">Nom de l'autor:</label>
+                        <input type="text" id="autor" name="autor"><br>
+                    </div>
+                    <div id="revista" class="ocult">
+                        <label for="publicacio">Data de publicació:</label><br>
+                        <input type="date" id="publicacio" name="publicacio"><br>
+                    </div>
+                    <div id="pelicula" class="ocult">
+                        <label for="director">Nom del director:</label><br>
+                        <input type="text" id="director" name="director"><br>
+                        <label for="genere">Gènere:</label><br>
+                        <input type="text" id="genere" name="genere"><br>
+                    </div>
+                    <input type="submit" value="Enviar">
+                    <input type="reset" value="Reset">
+            </fieldset>
+        </form>
+        <div id = "botoTanc">
+            <a href="#" rel="modal:close">Tancar</a>
+        </div>
+    </div>
+    <p><a href="#IdModal" rel="modal:open">
+        <button>Afegir Recurs</button>
+    </a></p>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulari de html a node</title>
+    <link rel="stylesheet" href="../css/styleForm.css">
+    <script src="../js/formulari.js" defer></script>
+</head>
+<body>
+    <!-- Exemple PopUp-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" rel="stylesheet"/>
+
+    <div id="IdModal" class="modal">
+        <p>Afegir persona.</p>
+        <!-- Formulari de Persona-->
+        <form name="persona" id="form" action="#" onsubmit="enviarPersona(event)">
+            <fieldset>
+                <legend>Persona</legend>
+                    <label for="nom">Nom:</label><br>
+                    <input type="text" id="nom" name="nom" required><br>
+                    <label for="dni">DNI:</label><br>
+                    <input type="text" id="dni" name="dni" required><br>
+                    <label for="persona">Tipus de persona:</label><br>
+                    <select id="classePersona" name="persona" onChange="mostrarCampsPersona()" required>
+                        <option value="" disabled selected hidden>Selecciona una opció</option>
+                        <option value="soci">Soci</option>
+                        <option value="administrador">Administrador</option>
+                    </select><br>
+                    <div id="soci" class="ocult"></div>
+                    <div id="administrador" class="ocult">
+                        <label for="administrador">Tipus de administrador:</label><br>
+                        <input type="radio" id="ajudant" name="tipus_admin" value="ajudant" required> <label for="ajudant">Ajudant</label><br>
+                        <input type="radio" id="admin" name="tipus_admin" value="admin" required> <label for="admin">Administrador</label><br> 
+                    </div>
+                    <input type="submit" value="Enviar">
+                    <input type="reset" value="Reset">
+            </fieldset>
+        </form>
+        <div id = "botoTanc">
+            <a href="#" rel="modal:close">Tancar</a>
+        </div>
+    </div>
+    <p><a href="#IdModal" rel="modal:open">
+        <button>Afegir Persona</button>
+    </a></p>
+
+
+</body>
+</html>

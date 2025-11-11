@@ -1,0 +1,46 @@
+version: "3.9"
+name: dwec
+services:
+  mysql:
+    build: ./db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+
+  nodejs:
+    build: ./app
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - NODE_ENV=${NODE_ENV}
+    ports:
+      - "${NODE_PORT}:3001"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+    volumes:
+      - ./app:/usr/src/app
+
+volumes:
+  db_data:
+
+networks:
+  app-network:

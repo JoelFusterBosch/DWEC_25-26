@@ -1,0 +1,48 @@
+html{
+padding: 0;
+border: 0;
+}
+
+header{
+  text-align: center;
+  background-color: #333;;
+  color: white;
+}
+
+nav#menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+  height: 50px;
+}
+
+nav#menu li {
+    display: inline-block;
+}
+
+nav#menu li a {
+  display: block; 
+  color: white; 
+  text-align: center;
+  padding: 15px;
+  text-decoration: none;
+}
+
+nav#menu li a:hover {
+    background-color: #111;
+}
+
+.active { 
+  background-color: #04AA6D;
+}
+
+main{
+  padding: 30px;
+  background-color: #E5E4E2;
+}
+footer{
+  text-align: center;
+  background-color: #313131;
+  color: #FFFF;
+}

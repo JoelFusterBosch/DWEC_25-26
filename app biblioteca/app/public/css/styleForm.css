@@ -1,0 +1,16 @@
+html{
+
+}
+.ocult{
+    display: none;
+}
+#botoTanc{
+    background-color: aqua;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+button{
+    border-radius: 10px;
+}

@@ -4,9 +4,7 @@ function mostrarCampsPersona(){
 
     const opcioSeleccionada = document.getElementById('classePersona').value;
 
-    if(opcioSeleccionada === 'soci'){
-        document.getElementById('soci').classList.remove('ocult');
-    } else if(opcioSeleccionada === 'administrador'){
+    if(opcioSeleccionada === 'administrador'){
         document.getElementById('administrador').classList.remove('ocult')
     }
 }
@@ -25,3 +23,20 @@ function mostrarCampsRecurs(){
         document.getElementById('pelicula').classList.remove('ocult')
     }
 }
+window.addEventListener('DOMContentLoaded', () => {
+    const formPersona = document.forms['persona'];
+    const formRecurs = document.forms['recurs'];
+
+    formPersona.addEventListener('reset', () => {
+        document.getElementById('soci').classList.add('ocult');
+        document.getElementById('administrador').classList.add('ocult');
+        document.getElementById('classePersona').selectedIndex = 0;
+    });
+
+    formRecurs.addEventListener('reset', () => {
+        document.getElementById('llibre').classList.add('ocult');
+        document.getElementById('revista').classList.add('ocult');
+        document.getElementById('pelicula').classList.add('ocult');
+        document.getElementById('classeRecurs').selectedIndex = 0;
+    });
+});
