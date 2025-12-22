@@ -1,0 +1,8 @@
+USE products;
+
+-- Exemple opcional
+CREATE TABLE IF NOT EXISTS products (
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  price INT NOT NULL
+);
